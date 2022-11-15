@@ -4,3 +4,8 @@ Since Pin 4 used to be used for the Ultrasonic, which now used for the motor, th
 
 ![image](https://user-images.githubusercontent.com/93396414/201843011-32a2890b-67da-4798-9339-488702935afe.png)
 ![image](https://user-images.githubusercontent.com/93396414/201843034-418088bf-51f7-4fd0-ab0b-f33c94869766.png)
+
+Demo:
+
+https://user-images.githubusercontent.com/93396414/201846126-d74ec384-1c9b-4cc6-b2c9-79776d653cd0.mp4
+
