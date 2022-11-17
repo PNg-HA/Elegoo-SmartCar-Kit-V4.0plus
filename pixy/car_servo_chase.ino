@@ -115,7 +115,8 @@ void setup()
 }
 
 void loop()
-{  
+{ 
+  static int time = 0;
   static int16_t index = -1;
   int32_t panOffset, tiltOffset, headingOffset, lft, rght;
   Block *block=NULL;
@@ -146,7 +147,10 @@ void loop()
 
     // move servos
     pixy.setServos(panLoop.m_command, tiltLoop.m_command);
-
+    Serial.print("Pan: ");
+    Serial.println(panLoop.m_command);
+    Serial.print("Tilt: ");
+    Serial.println(tiltLoop.m_command);
     // calculate translate and rotate errors
     panOffset += panLoop.m_command - PIXY_RCS_CENTER_POS;
     tiltOffset += tiltLoop.m_command - PIXY_RCS_CENTER_POS - PIXY_RCS_CENTER_POS/2 + PIXY_RCS_CENTER_POS/8;
@@ -184,11 +188,25 @@ void loop()
   }  
   else // no object detected, stop motors, go into search state
   {
-    rotateLoop.reset();
-    translateLoop.reset();
+    pixy.setServos(490, 508);
+     
+    while (pixy.ccc.numBlocks == 0)
+    { 
+      time++;
+      if (time == 10){
+        time = 0;
+        stop();
+        break;
+      }
+      right(150);
+      delay(10);       
+      pixy.ccc.getBlocks();
+      
+    }    
+
     // motors.setLeftSpeed(0);
     // motors.setRightSpeed(0);
-    stop();
+    
     index = -1; // set search state
   }
   delay(1);
